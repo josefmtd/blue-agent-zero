@@ -2,30 +2,38 @@
 
 DIR=`dirname $0`
 
-# Installing Git and the required packages to build bluez-tools
+# Installing the required packages to build bluez-5.50
 /usr/bin/apt update
-/usr/bin/apt install -y dh-autoreconf git libglib2.0-dev libreadline-dev
+/usr/bin/apt install -y libdbus-1-dev libglib2.0-dev libudev-dev libical-dev libreadline-dev
 
-# Clone the repository
-/usr/bin/git clone https://github.com/khvzak/bluez-tools
+# Download the BlueZ 5.50 source and unpack the tarball
+/usr/bin/wget www.kernel.org/pub/linux/bluetooth/bluez-5.50.tar.xz
+/bin/tar xvf bluez-5.50.tar.xz
 
-# Changing directory to the git repository clone
-cd "${DIR}/bluez-tools"
+# Changing the working directory to BlueZ-5.50
+echo "Changing directory to bluez-5.50"
+cd "${DIR}/bluez-5.50"
 
-# Create the configure and start the configuration script
-./autogen.sh
+# Configure the compiler
+"${DIR}/bluez-5.50/configure" --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --disable-cups --disable-a2dp --disable-avrcp --disable-network --disable-hid --disable-hog
 
-# Compiling
-/usr/bin/make
+# Compile and install
+"${DIR}/bluez-5.50/make"
+"${DIR}/bluez-5.50/make install"
 
-# Installing
-/usr/bin/make install
+# Changing the directory back to blue-agent-zero
+echo "Changing directory to blue-agent-zero"
+cd "${DIR}"
 
-# Cleaning
-/usr/bin/make clean
+# Removing the source
+/bin/rm -rf bluez-5.50
+/bin/rm bluez-5.50.tar.xz
 
-# Returning to previous folder
-cd ..
+# Replace the bluetoothd
+/bin/cp /usr/libexec/bluetooth/bluetoothd /usr/lib/bluetooth/bluetoothd
+
+# Install the BlueZ tools
+/usr/bin/apt install -y bluez-tools
 
 # Copy the services to systemd
 echo "Copying the bluetooth agent service to systemd"
