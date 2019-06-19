@@ -15,15 +15,15 @@ echo "Changing directory to bluez-5.50"
 cd "${DIR}/bluez-5.50"
 
 # Configure the compiler
-"${DIR}/bluez-5.50/configure" --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --disable-cups --disable-a2dp --disable-avrcp --disable-network --disable-hid --disable-hog
+"${DIR}/configure" --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --disable-cups --disable-a2dp --disable-avrcp --disable-network --disable-hid --disable-hog
 
 # Compile and install
-"${DIR}/bluez-5.50/make"
-"${DIR}/bluez-5.50/make install"
+/usr/bin/make
+/usr/bin/make install
 
 # Changing the directory back to blue-agent-zero
 echo "Changing directory to blue-agent-zero"
-cd "${DIR}"
+cd ..
 
 # Removing the source
 /bin/rm -rf bluez-5.50
