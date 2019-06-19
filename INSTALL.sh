@@ -30,6 +30,7 @@ cd ..
 /bin/rm bluez-5.50.tar.xz
 
 # Replace the bluetoothd
+/bin/systemctl stop bluetooth.service
 /bin/cp /usr/libexec/bluetooth/bluetoothd /usr/lib/bluetooth/bluetoothd
 
 # Install the BlueZ tools
