@@ -15,7 +15,7 @@ echo "Changing directory to bluez-5.50"
 cd "${DIR}/bluez-5.50"
 
 # Configure the compiler
-"${DIR}/configure" --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --disable-cups --disable-a2dp --disable-avrcp --disable-network --disable-hid --disable-hog
+"${DIR}/configure" --prefix=/usr --mandir=/usr/share/man --sysconfdir=/etc --localstatedir=/var --enable-deprecated
 
 # Compile and install
 /usr/bin/make
