@@ -6,7 +6,7 @@ ConditionPathIsDirectory=/sys/class/bluetooth
 [Service]
 Type=dbus
 BusName=org.bluez
-ExecStart=/usr/lib/bluetooth/bluetoothd -C --noplugin=sap
+ExecStart=/usr/lib/bluetooth/bluetoothd -C -d
 ExecStartPost=/bin/hciconfig hci0 piscan
 ExecStartPost=/usr/bin/sdptool add sp
 NotifyAccess=main
